@@ -1,0 +1,106 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<br>
+        <div class="container text-left">
+            <div class="row">
+                <div class="col text-center">
+                    {% if item.image %}
+                        <img src="{{ item.image }}" alt="picture" max-height="400em" width="400em">
+                    {% else %}
+                        <p>No picture</p>
+                    {% endif %}
+                </div>
+
+                <div class="col container2">
+                    <div>
+                        {% if message_sold %}
+                            <small>{{message_sold}}</small>
+                        {% endif %}
+
+                        <div><h1>{{ item.title }}</h1></div>
+                        <div>{{item.date}}</div>
+                        <div>Category: {{item.category.category_type}}</div>
+                        <div>Description: {{item.description}}</div>
+
+                        {% if item.status != 'close' %}
+                            <div>Starting bid: {{item.starting_bid}} $</div>
+                            <div>Current price: {{item.price}} $</div>
+
+                    </div>
+                       
+                        {% if user.is_authenticated %}
+                            <div id="add_bid">
+                                <form action="{% url 'bid_add' item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <label for="bid">Do you want to bid on the item?
+                                        <input type="number" name="bid" id="">
+                                    </label>
+                                    <input type="submit" name="submit" value="Add bid" id="" class="btn btn-primary">
+                                </form>
+                            </div>
+                
+                        
+                            <a href="{% url 'watchlist_add' item.id %}" role="button" class="btn btn-danger">Add to watchlist</a>
+                            <a href="{% url 'watchlist_remove' item.id %}" role="button" class="btn btn-warning">Remove from watchlist</a>
+                    
+                            {% if messages %}
+                            <ul class="messages" style="list-style-type: none;">
+                                {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                    <div class="alert alert-info" role="alert">
+                                        {{ message }}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        {% endif %}
+                        <br>
+
+                    {% else %}
+                            <div>
+                                <h1><strong style="color: red;">SOLD</strong></h1>
+                                {% if buyer == user %}
+                                    <h3 style="color:greenyellow;">Congratulation, you won this action</h3>
+                                {% endif %}
+                            </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="creat">
+                <br>
+                <h6>Comments</h6>
+                {% if comments %}
+                    {% for comment in comments %}
+                    <div class="card comment">
+                        <h5 class="card-header"><small>{{ comment.date }}</small></h5>
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.comment }}</p>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                {% else %}
+                    No comments
+                {% endif %}
+            
+            </div>
+        
+            <div>
+                <form action="{% url 'comment' item.id %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label for="comment" class="form-label creat">Add your comment<br>
+                            <textarea class="form-control" name="comment" id="" cols="30" rows="2" placeholder="Enter your comment"></textarea>
+                        </label><br>
+                        <input type="submit" name="submit" value="Add a comment" id="" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+
+{% endblock %}

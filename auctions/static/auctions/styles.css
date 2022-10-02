@@ -1,0 +1,90 @@
+
+
+body {
+    padding: 10px;
+    background: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg') no-repeat center center fixed;
+}
+
+hr {
+    margin: 0 0 16px 0;
+}
+
+.btn {
+    margin: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    margin-left: 20px;
+    color: azure;
+}
+
+h3 {
+    color:greenyellow
+}
+
+.creat {
+    color: azure;
+}
+
+/* aution listing */
+#actionlisting {
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    color: azure;
+    border: none;
+}
+
+.card:hover {
+    background-color: rgba(51, 102, 153, 0.97);
+}
+
+.auction {
+    max-width: 18rem;
+    margin: 10px;
+    background-color: rgba(57, 75, 88, 0.7);
+}
+
+/* index2 */
+.sold {
+    color: red;
+}
+
+/* category */
+.decor {
+    text-decoration: none;
+    transition: transform .2s; /* Animation */
+}
+
+.decor:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.category {
+    /* min-width: 10rem; */
+    width: 8rem;
+    height: 7rem;
+    margin: 30px;
+
+}
+
+
+.container2 {
+    background-color: rgba(57, 75, 88, 0.7);
+    color: azure;
+}
+
+.comment {
+    background-color: rgba(57, 75, 88, 0.7);
+}
+
+.comment:hover {
+    background-color: rgba(57, 75, 88, 0.7);
+}

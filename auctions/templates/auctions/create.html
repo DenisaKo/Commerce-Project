@@ -1,0 +1,65 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Create a Listings</h2>
+    <br>
+
+    {% if message %}
+    <h4>{{ message }}</h4>
+    {% endif %}
+
+    
+
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <div class="row creat">
+            <div class="col-2">
+            </div>
+            
+            <div class="col-4">
+                <label for="title" class="form-label">Title<br>
+                    <input type="text" name="title" class="form-control" required placeholder="Name your item">
+                </label>
+                </br>
+        
+                <label for="category" class="form-label">Category</br>
+                    <select name="category" class="form-select" id="" required>
+                        <option value="">Select one</option>
+                        {% for category in categories %}
+                            <option name="category" value="{{ category.id }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                </br>
+                <label for="imgage" class="form-label">Image URL<br>
+                    <input type="url" name="image" class="form-control">
+                </label>
+                </br>
+        
+                <label for="starting_bid" class="form-label">Starting bid<br>
+                    <input type="number" name="starting_bid" class="form-control" required>
+                </label>
+
+            </div>
+            
+            <div class="col-4">
+                <label for="description" class="form-label">Description<br>
+                    <textarea name="description" class="form-control" id="" cols="30" rows="10" placeholder="Add Description" required></textarea>
+                </label>
+            </div>
+
+            <div class="col-2">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+            </div>
+            <div class="col-4">
+                <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

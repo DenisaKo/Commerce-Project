@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>My Listings</h2>
+
+    <div id="actionlisting">
+        {% for item in items %}
+        <div class="card auction" >
+            {% if item.image %}
+                <img src="{{ item.image }}" alt="picture" class="card-img-top">
+            {% else %}
+                <p>No picture</p>
+            {% endif %}
+          
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <div class="card-text">Description: {{item.description}}</div>
+                    <div class="card-text">Price: {{item.price}} $</div>
+                    {% if item.status == 'close' %}
+                        <h1 class="sold">SOLD</h1>
+                        {% endif %}
+                </div>
+                <div class="text-end">
+                    <a href="{% url 'listing' item.id %}" class="btn btn-primary">More</a>
+                    {% if item.status == 'open' %}
+                        <form action="{% url 'close' item.id %}" method="post">
+                            {% csrf_token %}
+                            <label for="close">
+                                <input type="hidden" name="status" value="close">
+                                <input type="submit" name="submit" value="Close the acution" class="btn btn-danger" id="">
+                            </label>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+{% endblock %}
